@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About You</title>
-    <!-- Memuat font Playfair Display & Inter yang estetik -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -24,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* Container utama responsif untuk HP dan Laptop */
         .container {
             position: relative;
             width: 100vw;
@@ -48,7 +46,7 @@
             }
         }
 
-        /* --- LANDING PAGE: GRADASI HITAM KE PUTIH (MONOKROM) --- */
+        /* --- LANDING PAGE --- */
         .landing-page {
             position: absolute;
             width: 100%;
@@ -60,7 +58,6 @@
             text-align: center;
             padding: 40px;
             z-index: 3;
-            /* Gradasi monokrom dari abu-abu terang/putih arang ke hitam pekat */
             background: linear-gradient(135deg, #2b2b2b 0%, #111111 50%, #000000 100%);
             transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
@@ -85,18 +82,30 @@
         }
 
         .landing-title span {
-            color: #b0b0b0; /* Aksen abu-abu terang */
+            color: #b0b0b0;
         }
 
         .landing-desc {
             font-size: 13px;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             letter-spacing: 1px;
         }
 
-        /* Tombol Mulai dengan gaya kontras hitam-putih */
+        /* Tambahan nama GitHub di landing page */
+        .github-tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
         .explore-btn {
             background: #ffffff;
             color: #000000;
@@ -118,7 +127,6 @@
             box-shadow: 0 6px 30px rgba(255, 255, 255, 0.4);
         }
 
-        /* Animasi Transisi Keluar */
         .landing-page.slide-up {
             transform: translateY(-100%);
             opacity: 0;
@@ -155,6 +163,87 @@
             object-fit: cover;
         }
 
+        /* --- NAVBAR ALA STORY INSTAGRAM --- */
+        .ig-navbar {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            padding: 0 15px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Garis-garis progress bar */
+        .progress-bars {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .bar {
+            flex: 1;
+            height: 2.5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: #ffffff;
+        }
+
+        /* Bagian Profil & Tombol Tutup */
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .story-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .story-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #333;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .story-username {
+            font-size: 13px;
+            font-weight: 500;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 22px;
+            cursor: pointer;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            padding: 0 5px;
+        }
+
         /* Tombol Pause di tengah video */
         .pause-overlay {
             position: absolute;
@@ -188,20 +277,36 @@
 <body>
 
     <div class="container">
-        <!-- LANDING PAGE DENGAN GRADASI HITAM-PUTIH & FONT ESTETIK -->
+        <!-- LANDING PAGE DENGAN NAMA GITHUB -->
         <div id="landingPage" class="landing-page">
             <div class="badge">Soundtrack</div>
             <div class="landing-title">About <span>You</span></div>
+            <div class="github-tag">github.com/deufyy</div>
             <div class="landing-desc">Tekan tombol di bawah untuk mendengarkan</div>
             <button class="explore-btn" onclick="startExperience()">Mulai</button>
         </div>
 
-        <!-- HALAMAN PEMUTAR VIDEO -->
+        <!-- HALAMAN PEMUTAR VIDEO + INSTAGRAM STORY NAVBAR -->
         <div id="playerPage" class="player-page" onclick="togglePause()">
-            <video id="myVideo" class="bg-video" playsinline loop>
+            <!-- Navbar ala Story IG -->
+            <div class="ig-navbar">
+                <div class="progress-bars">
+                    <div class="bar"><div id="barFill" class="bar-fill"></div></div>
+                </div>
+                <div class="story-header">
+                    <div class="story-user">
+                        <div class="story-avatar">D</div>
+                        <span class="story-username">deufyy</span>
+                    </div>
+                    <button class="close-btn" onclick="resetExperience(event)">&times;</button>
+                </div>
+            </div>
+
+            <video id="myVideo" class="bg-video" playsinline>
                 <source src="video-lirik.mp4" type="video/mp4">
                 Browser kamu tidak mendukung tag video.
             </video>
+            
             <div id="pauseOverlay" class="pause-overlay">
                 <div class="pause-icon"></div>
             </div>
@@ -213,14 +318,19 @@
         const playerPage = document.getElementById('playerPage');
         const video = document.getElementById('myVideo');
         const pauseOverlay = document.getElementById('pauseOverlay');
+        const barFill = document.getElementById('barFill');
 
         function startExperience() {
             landingPage.classList.add('slide-up');
             playerPage.classList.add('active');
+            video.currentTime = 0;
             video.play();
         }
 
-        function togglePause() {
+        function togglePause(e) {
+            // Mencegah tombol close ikut memicu pause video
+            if (e.target.classList.contains('close-btn')) return;
+
             if (!video.paused) {
                 video.pause();
                 pauseOverlay.style.opacity = 1;
@@ -229,6 +339,30 @@
                 pauseOverlay.style.opacity = 0;
             }
         }
+
+        function resetExperience(e) {
+            e.stopPropagation(); // Mencegah fungsi pause ikut terpanggil
+            video.pause();
+            playerPage.classList.remove('active');
+            landingPage.classList.remove('slide-up');
+            barFill.style.width = '0%';
+            pauseOverlay.style.opacity = 0;
+        }
+
+        // Mengisi progress bar navbar ala Story IG seiring durasi video berjalan
+        video.addEventListener('timeupdate', () => {
+            if (video.duration) {
+                let percentage = (video.currentTime / video.duration) * 100;
+                barFill.style.width = percentage + '%';
+            }
+        });
+
+        // Jika video selesai, kembali ke landing page secara otomatis
+        video.addEventListener('ended', () => {
+            playerPage.classList.remove('active');
+            landingPage.classList.remove('slide-up');
+            barFill.style.width = '0%';
+        });
     </script>
 
 </body>
