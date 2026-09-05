@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Memuat font Playfair Display & Inter yang estetik -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,9 +14,9 @@
         }
 
         body {
-            background-color: #030303;
-            color: #f1f1f1;
-            font-family: 'Plus Jakarta+Sans', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,19 +24,19 @@
             overflow: hidden;
         }
 
-        /* Container utama: Responsif di HP maupun Laptop */
+        /* Container utama responsif untuk HP dan Laptop */
         .container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            max-width: 450px; /* Lebar maksimal ala bingkai ponsel di layar PC */
+            max-width: 450px;
             max-height: 100vh;
-            background: #030303;
+            background: #000000;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.05);
         }
 
         @media (min-width: 768px) {
@@ -43,11 +44,11 @@
                 height: 90vh;
                 max-height: 850px;
                 border-radius: 30px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.15);
             }
         }
 
-        /* --- LANDING PAGE GAYA BARU (MINIMALIS ESTETIK) --- */
+        /* --- LANDING PAGE: GRADASI HITAM KE PUTIH (MONOKROM) --- */
         .landing-page {
             position: absolute;
             width: 100%;
@@ -59,57 +60,65 @@
             text-align: center;
             padding: 40px;
             z-index: 3;
-            background: radial-gradient(circle, #1a1a1a 0%, #080808 100%);
+            /* Gradasi monokrom dari abu-abu terang/putih arang ke hitam pekat */
+            background: linear-gradient(135deg, #2b2b2b 0%, #111111 50%, #000000 100%);
             transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         .badge {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 20px;
+            letter-spacing: 5px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 25px;
         }
 
         .landing-title {
-            font-family: 'Cinzel', serif;
-            font-size: 36px;
-            font-weight: 500;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
             color: #ffffff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .landing-title span {
+            color: #b0b0b0; /* Aksen abu-abu terang */
         }
 
         .landing-desc {
             font-size: 13px;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             letter-spacing: 1px;
         }
 
-        /* Tombol dengan Animasi Elegan */
+        /* Tombol Mulai dengan gaya kontras hitam-putih */
         .explore-btn {
             background: #ffffff;
-            color: #030303;
+            color: #000000;
             border: none;
-            padding: 14px 36px;
+            padding: 14px 40px;
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             cursor: pointer;
             text-transform: uppercase;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.2);
         }
 
         .explore-btn:hover {
+            background: #e0e0e0;
             transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.4);
         }
 
-        /* --- ANIMASI TRANSISI KELUAR --- */
+        /* Animasi Transisi Keluar */
         .landing-page.slide-up {
             transform: translateY(-100%);
             opacity: 0;
@@ -143,15 +152,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Menyesuaikan layar laptop dan HP tanpa gepeng */
+            object-fit: cover;
         }
 
         /* Tombol Pause di tengah video */
         .pause-overlay {
             position: absolute;
             z-index: 4;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             width: 65px;
             height: 65px;
@@ -179,11 +188,11 @@
 <body>
 
     <div class="container">
-        <!-- LANDING PAGE GAYA BARU -->
+        <!-- LANDING PAGE DENGAN GRADASI HITAM-PUTIH & FONT ESTETIK -->
         <div id="landingPage" class="landing-page">
-            <div class="badge">Experience</div>
-            <div class="landing-title">About You</div>
-            <div class="landing-desc">Tekan tombol di bawah untuk memulai</div>
+            <div class="badge">Soundtrack</div>
+            <div class="landing-title">About <span>You</span></div>
+            <div class="landing-desc">Tekan tombol di bawah untuk mendengarkan</div>
             <button class="explore-btn" onclick="startExperience()">Mulai</button>
         </div>
 
@@ -206,7 +215,6 @@
         const pauseOverlay = document.getElementById('pauseOverlay');
 
         function startExperience() {
-            // Menjalankan animasi transisi geser ke atas
             landingPage.classList.add('slide-up');
             playerPage.classList.add('active');
             video.play();
