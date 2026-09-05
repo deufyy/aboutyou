@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Start</title>
+    <title>What If I Call?</title>
+    <!-- Memuat font bergaya klasik/serif yang estetik -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -12,30 +14,117 @@
         }
 
         body {
-            background-color: #050505;
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: 'Playfair Display', serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
         }
 
         /* Bingkai utama ukuran layar HP */
-        .phone-frame {
+        .container {
             position: relative;
             width: 100vw;
             height: 100vh;
             max-width: 414px;
             max-height: 896px;
-            background: #000;
+            background: #0b0b0b;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Video latar belakang */
+        /* --- TAMPILAN AWAL (LANDING PAGE) --- */
+        .landing-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            z-index: 3;
+            background: #0b0b0b;
+            transition: opacity 0.5s ease;
+        }
+
+        .title-text {
+            font-size: 42px;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: #f4eee2;
+        }
+
+        .title-text span {
+            color: #d4a373; /* Warna aksen cokelat/emas di kata tertentu */
+        }
+
+        .subtitle-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tombol DENGARKAN */
+        .listen-btn {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .listen-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-note {
+            position: absolute;
+            bottom: 25px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        /* --- TAMPILAN PEMUTAR VIDEO --- */
+        .player-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .player-page.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 2;
+        }
+
         video.bg-video {
             position: absolute;
             top: 0;
@@ -43,107 +132,95 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.45); /* Menggelapkan video agar tombol makin kontras */
-            z-index: 1;
         }
 
-        /* Kotak Pembungkus Ala Card Login yang Estetik */
-        .login-card {
-            position: relative;
-            z-index: 2;
-            width: 85%;
-            max-width: 300px;
-            padding: 35px 25px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            transition: all 0.5s ease;
-        }
-
-        .login-card h2 {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .login-card p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        /* Tombol Mulai Estetik */
-        .start-btn {
-            width: 100%;
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #000;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
+        /* Tombol Pause di tengah video saat diputar */
+        .pause-overlay {
+            position: absolute;
+            z-index: 4;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .start-btn:hover {
-            background: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        /* Munculkan tombol jeda jika disentuh/di-hover */
+        .player-page:hover .pause-overlay {
+            opacity: 1;
         }
 
-        .start-btn:active {
-            transform: translateY(0);
+        .pause-icon {
+            width: 14px;
+            height: 18px;
+            border-left: 4px solid white;
+            border-right: 4px solid white;
         }
 
-        /* Efek saat card menghilang setelah tombol diklik */
-        .hidden {
+        /* Kelas untuk menyembunyikan halaman awal */
+        .fade-out {
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
 
-    <div class="phone-frame">
-        <!-- Video Latar Belakang -->
-        <video id="myVideo" class="bg-video" playsinline loop>
-            <source src="video-lirik.mp4" type="video/mp4">
-            Browser kamu tidak mendukung tag video.
-        </video>
+    <div class="container">
+        <!-- HALAMAN AWAL (Teks & Tombol DENGARKAN) -->
+        <div id="landingPage" class="landing-page">
+            <div class="title-text">
+                What if I<br><span>call?</span>
+            </div>
+            <div class="subtitle-text">Biarkan lagunya yang menelepon.</div>
+            <button class="listen-btn" onclick="startExperience()">Dengarkan</button>
+            <div class="footer-note">Alex Crichton &bull; Merry Christmas</div>
+        </div>
 
-        <!-- Kotak Tombol Estetik ala Card Login -->
-        <div id="loginCard" class="login-card">
-            <h2>Soundtrack</h2>
-            <p>Ketuk untuk mendengarkan</p>
-            <button class="start-btn" onclick="playMusic()">Mulai</button>
+        <!-- HALAMAN PEMUTAR VIDEO -->
+        <div id="playerPage" class="player-page" onclick="togglePause()">
+            <video id="myVideo" class="bg-video" playsinline loop>
+                <source src="video-lirik.mp4" type="video/mp4">
+                Browser kamu tidak mendukung tag video.
+            </video>
+            <!-- Tombol Jeda di tengah -->
+            <div id="pauseOverlay" class="pause-overlay">
+                <div class="pause-icon"></div>
+            </div>
         </div>
     </div>
 
     <script>
+        const landingPage = document.getElementById('landingPage');
+        const playerPage = document.getElementById('playerPage');
         const video = document.getElementById('myVideo');
-        const loginCard = document.getElementById('loginCard');
+        const pauseOverlay = document.getElementById('pauseOverlay');
 
-        function playMusic() {
+        function startExperience() {
+            // Sembunyikan halaman awal secara halus
+            landingPage.classList.add('fade-out');
+            // Tampilkan halaman video
+            playerPage.classList.add('active');
+            // Putar video
             video.play();
-            // Card tombol akan memudar dan hilang secara mulus saat video diputar
-            loginCard.classList.add('hidden');
         }
 
-        // Jika video di-pause atau selesai, card tombolnya bisa muncul lagi kalau layar disentuh
-        video.addEventListener('pause', () => {
-            loginCard.classList.remove('hidden');
-        });
+        function togglePause() {
+            if (!video.paused) {
+                video.pause();
+                pauseOverlay.style.opacity = 1; // Tampilkan tombol pause jika berhenti
+            } else {
+                video.play();
+                pauseOverlay.style.opacity = 0; // Sembunyikan jika diputar lagi
+            }
+        }
     </script>
 
 </body>
