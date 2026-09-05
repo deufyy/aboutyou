@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What If I Call?</title>
-    <!-- Memuat font bergaya klasik/serif yang estetik -->
+    <title>About You</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
@@ -24,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* Bingkai utama ukuran layar HP */
         .container {
             position: relative;
             width: 100vw;
@@ -64,7 +62,7 @@
         }
 
         .title-text span {
-            color: #d4a373; /* Warna aksen cokelat/emas di kata tertentu */
+            color: #d4a373;
         }
 
         .subtitle-text {
@@ -74,7 +72,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Tombol DENGARKAN */
         .listen-btn {
             background: transparent;
             color: #ffffff;
@@ -134,7 +131,6 @@
             object-fit: cover;
         }
 
-        /* Tombol Pause di tengah video saat diputar */
         .pause-overlay {
             position: absolute;
             z-index: 4;
@@ -152,7 +148,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Munculkan tombol jeda jika disentuh/di-hover */
         .player-page:hover .pause-overlay {
             opacity: 1;
         }
@@ -164,7 +159,6 @@
             border-right: 4px solid white;
         }
 
-        /* Kelas untuk menyembunyikan halaman awal */
         .fade-out {
             opacity: 0;
             pointer-events: none;
@@ -174,14 +168,14 @@
 <body>
 
     <div class="container">
-        <!-- HALAMAN AWAL (Teks & Tombol DENGARKAN) -->
+        <!-- HALAMAN AWAL (LANDING PAGE) -->
         <div id="landingPage" class="landing-page">
             <div class="title-text">
-                What if I<br><span>call?</span>
+                About <span>You</span>
             </div>
-            <div class="subtitle-text">Biarkan lagunya yang menelepon.</div>
+            <div class="subtitle-text">Biarkan lagunya yang berbicara.</div>
             <button class="listen-btn" onclick="startExperience()">Dengarkan</button>
-            <div class="footer-note">Alex Crichton &bull; Merry Christmas</div>
+            <div class="footer-note">Music &bull; Aesthetics</div>
         </div>
 
         <!-- HALAMAN PEMUTAR VIDEO -->
@@ -190,7 +184,6 @@
                 <source src="video-lirik.mp4" type="video/mp4">
                 Browser kamu tidak mendukung tag video.
             </video>
-            <!-- Tombol Jeda di tengah -->
             <div id="pauseOverlay" class="pause-overlay">
                 <div class="pause-icon"></div>
             </div>
@@ -204,21 +197,18 @@
         const pauseOverlay = document.getElementById('pauseOverlay');
 
         function startExperience() {
-            // Sembunyikan halaman awal secara halus
             landingPage.classList.add('fade-out');
-            // Tampilkan halaman video
             playerPage.classList.add('active');
-            // Putar video
             video.play();
         }
 
         function togglePause() {
             if (!video.paused) {
                 video.pause();
-                pauseOverlay.style.opacity = 1; // Tampilkan tombol pause jika berhenti
+                pauseOverlay.style.opacity = 1;
             } else {
                 video.play();
-                pauseOverlay.style.opacity = 0; // Sembunyikan jika diputar lagi
+                pauseOverlay.style.opacity = 0;
             }
         }
     </script>
