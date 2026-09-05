@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,9 +13,9 @@
         }
 
         body {
-            background-color: #0b0b0b;
-            color: #ffffff;
-            font-family: 'Playfair Display', serif;
+            background-color: #030303;
+            color: #f1f1f1;
+            font-family: 'Plus Jakarta+Sans', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,20 +23,31 @@
             overflow: hidden;
         }
 
+        /* Container utama: Responsif di HP maupun Laptop */
         .container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            max-width: 414px;
-            max-height: 896px;
-            background: #0b0b0b;
+            max-width: 450px; /* Lebar maksimal ala bingkai ponsel di layar PC */
+            max-height: 100vh;
+            background: #030303;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
         }
 
-        /* --- TAMPILAN AWAL (LANDING PAGE) --- */
+        @media (min-width: 768px) {
+            .container {
+                height: 90vh;
+                max-height: 850px;
+                border-radius: 30px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        /* --- LANDING PAGE GAYA BARU (MINIMALIS ESTETIK) --- */
         .landing-page {
             position: absolute;
             width: 100%;
@@ -46,61 +57,65 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             z-index: 3;
-            background: #0b0b0b;
-            transition: opacity 0.5s ease;
+            background: radial-gradient(circle, #1a1a1a 0%, #080808 100%);
+            transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        .title-text {
-            font-size: 42px;
-            font-style: italic;
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            color: #f4eee2;
+        .badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 20px;
         }
 
-        .title-text span {
-            color: #d4a373;
-        }
-
-        .subtitle-text {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 40px;
-            letter-spacing: 0.5px;
-        }
-
-        .listen-btn {
-            background: transparent;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 35px;
-            border-radius: 30px;
-            font-family: 'Playfair Display', serif;
-            font-size: 12px;
+        .landing-title {
+            font-family: 'Cinzel', serif;
+            font-size: 36px;
+            font-weight: 500;
             letter-spacing: 3px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #ffffff;
         }
 
-        .listen-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.8);
+        .landing-desc {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 35px;
+            letter-spacing: 1px;
         }
 
-        .footer-note {
-            position: absolute;
-            bottom: 25px;
-            font-size: 10px;
+        /* Tombol dengan Animasi Elegan */
+        .explore-btn {
+            background: #ffffff;
+            color: #030303;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
             letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
             text-transform: uppercase;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
         }
 
-        /* --- TAMPILAN PEMUTAR VIDEO --- */
+        .explore-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- ANIMASI TRANSISI KELUAR --- */
+        .landing-page.slide-up {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* --- HALAMAN PEMUTAR VIDEO --- */
         .player-page {
             position: absolute;
             top: 0;
@@ -112,13 +127,13 @@
             align-items: center;
             z-index: 1;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+            transform: scale(1.05);
+            transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         .player-page.active {
             opacity: 1;
-            pointer-events: auto;
+            transform: scale(1);
             z-index: 2;
         }
 
@@ -128,14 +143,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Menyesuaikan layar laptop dan HP tanpa gepeng */
         }
 
+        /* Tombol Pause di tengah video */
         .pause-overlay {
             position: absolute;
             z-index: 4;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             width: 65px;
             height: 65px;
@@ -143,7 +159,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -153,29 +169,22 @@
         }
 
         .pause-icon {
-            width: 14px;
-            height: 18px;
-            border-left: 4px solid white;
-            border-right: 4px solid white;
-        }
-
-        .fade-out {
-            opacity: 0;
-            pointer-events: none;
+            width: 12px;
+            height: 16px;
+            border-left: 3.5px solid white;
+            border-right: 3.5px solid white;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- HALAMAN AWAL (LANDING PAGE) -->
+        <!-- LANDING PAGE GAYA BARU -->
         <div id="landingPage" class="landing-page">
-            <div class="title-text">
-                About <span>You</span>
-            </div>
-            <div class="subtitle-text">Biarkan lagunya yang berbicara.</div>
-            <button class="listen-btn" onclick="startExperience()">Dengarkan</button>
-            <div class="footer-note">Music &bull; Aesthetics</div>
+            <div class="badge">Experience</div>
+            <div class="landing-title">About You</div>
+            <div class="landing-desc">Tekan tombol di bawah untuk memulai</div>
+            <button class="explore-btn" onclick="startExperience()">Mulai</button>
         </div>
 
         <!-- HALAMAN PEMUTAR VIDEO -->
@@ -197,7 +206,8 @@
         const pauseOverlay = document.getElementById('pauseOverlay');
 
         function startExperience() {
-            landingPage.classList.add('fade-out');
+            // Menjalankan animasi transisi geser ke atas
+            landingPage.classList.add('slide-up');
             playerPage.classList.add('active');
             video.play();
         }
